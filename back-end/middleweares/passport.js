@@ -16,7 +16,7 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
             return done(null, false);
             // or you could create a new account
         }
-    });
+    }).select('-password');
 }));
 
 module.exports=isAuth=()=>passport.authenticate('jwt', { session: false })

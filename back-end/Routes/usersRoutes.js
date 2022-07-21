@@ -24,6 +24,7 @@ router.post("/register", registerRules(), validator, async (req, res) => {
     newUser.password = hashedPassword;
     //console.log(newUser instanceof User) ==>true
     await newUser.save();
+    newUser.password=undefined
     res.send({ user: newUser });
   } catch (error) {
     console.log(error);
@@ -45,6 +46,7 @@ router.post("/login", async (req, res) => {
     }
     const payload = { _id: existUser._id };
     const token = await jwt.sign(payload, process.env.privateKey);
+    existUser.password=undefined
     res.send({ user: existUser, token });
   } catch (error) {
     console.log(error);
